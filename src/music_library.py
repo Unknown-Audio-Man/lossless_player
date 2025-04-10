@@ -72,6 +72,10 @@ class MusicLibrary:
         # Walk through all files in the mounted directory
         for root, _, files in os.walk(MOUNT_POINT):
             for file in files:
+                # Skip macOS metadata files (._filename)
+                if file.startswith('._'):
+                    continue
+                    
                 if file.lower().endswith(supported_extensions):
                     try:
                         file_path = os.path.join(root, file)
@@ -93,6 +97,11 @@ class MusicLibrary:
     def _process_audio_file(self, file_path):
         """Process a single audio file and extract metadata"""
         try:
+            # Skip macOS hidden files and system files
+            filename = os.path.basename(file_path)
+            if filename.startswith('.') or filename.startswith('._'):
+                return
+                
             audio = MutagenFile(file_path)
             
             if audio is None:
