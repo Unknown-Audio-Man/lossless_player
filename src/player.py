@@ -17,8 +17,8 @@ class Player:
     """VLC-based audio player with playlist management"""
     
     def __init__(self):
-        # Initialize VLC instance
-        self.instance = vlc.Instance('--no-video --alsa-audio-device=default')
+        # Initialize VLC instance with ALSA output - explicitly avoid PulseAudio
+        self.instance = vlc.Instance('--no-video --aout=alsa --alsa-audio-device=hw:0')
         self.player = self.instance.media_player_new()
         self.media_list = self.instance.media_list_new()
         self.list_player = self.instance.media_list_player_new()
