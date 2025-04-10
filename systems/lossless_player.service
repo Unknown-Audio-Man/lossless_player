@@ -1,6 +1,6 @@
 [Unit]
 Description=Lossless Audio Player for Raspberry Pi
-After=network.target
+After=network.target sound.target
 
 [Service]
 User=jay
@@ -12,6 +12,7 @@ RestartSec=5
 StandardOutput=syslog
 StandardError=syslog
 SyslogIdentifier=lossless_player
+Environment="XDG_RUNTIME_DIR=/run/user/1000"
 
 [Install]
 WantedBy=multi-user.target
