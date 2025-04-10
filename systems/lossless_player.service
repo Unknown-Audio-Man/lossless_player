@@ -1,0 +1,17 @@
+[Unit]
+Description=Lossless Audio Player for Raspberry Pi
+After=network.target
+
+[Service]
+User=jay
+Group=jay
+WorkingDirectory=/home/jay/lossless_player
+ExecStart=/home/jay/lossless_player/venv/bin/python3 /home/jay/lossless_player/src/main.py
+Restart=always
+RestartSec=5
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=lossless_player
+
+[Install]
+WantedBy=multi-user.target
